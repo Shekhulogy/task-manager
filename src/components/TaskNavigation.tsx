@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { TabState } from "./TaskContainer";
 
-type ButtonState = {
-  all: boolean;
-  active: boolean;
-  completed: boolean;
-};
+type TaskNavigationProps ={
+  isActive:TabState,
+  setIsActive:React.Dispatch<React.SetStateAction<TabState>>
+}
 
-const TaskNavigation: React.FC = () => {
-  const [isActive, setIsActive] = useState<ButtonState>({
-    all: true,
-    active: false,
-    completed: false,
-  });
+const TaskNavigation: React.FC<TaskNavigationProps> = ({isActive, setIsActive}) => {
+  
 
   const btnClickHandler = (e: React.MouseEvent) => {
     const id = e.currentTarget.id;

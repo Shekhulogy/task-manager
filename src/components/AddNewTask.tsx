@@ -15,7 +15,7 @@ const AddNewTask: React.FC = () => {
     id: crypto.randomUUID(),
     text: "",
     dueDate: "",
-    priority: selectedOption,
+    priority: undefined,
     isChecked: false,
   });
 
