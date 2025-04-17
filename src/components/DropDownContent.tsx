@@ -1,25 +1,29 @@
 import React from "react";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
+import { optionType } from "./AddNewTask";
 
 interface ContentProps {
-  setSelectedOption(value: string): void,
-  onClick(): void
+  setSelectedOption:React.Dispatch<React.SetStateAction<optionType>>;
+  onClick(): void;
 }
 
-const DropDownContent: React.FC<ContentProps> = ({ setSelectedOption, onClick }) => {
-    const handelClick = (e: React.MouseEvent) => {
-        if(e.currentTarget.id === "low"){
-          setSelectedOption("Low");
-        }else if(e.currentTarget.id === "medium"){
-          setSelectedOption("Medium")
-        }else{
-          setSelectedOption("High")
-        }
-
-        onClick();
+const DropDownContent: React.FC<ContentProps> = ({
+  setSelectedOption,
+  onClick,
+}) => {
+  const handelClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.currentTarget.id === "low") {
+      setSelectedOption("Low");
+    } else if (e.currentTarget.id === "medium") {
+      setSelectedOption("Medium");
+    } else {
+      setSelectedOption("High");
     }
+
+    onClick();
+  };
   return (
-    <div className="absolute w-full overflow-hidden flex flex-col gap-2 p-1 bg-white rounded-md mt-20 z-50 shadow-md cursor-pointer border border-gray-200">
+    <div className="absolute w-full overflow-hidden flex flex-col gap-2 p-1 bg-white rounded-md mt-2 z-50 shadow-md cursor-pointer border border-gray-200">
       <div
         id="low"
         className="w-full flex items-center gap-2 px-3 py-2 rounded-sm hover:bg-violet-100"
@@ -31,7 +35,7 @@ const DropDownContent: React.FC<ContentProps> = ({ setSelectedOption, onClick })
         <span className="text-sm font-medium">Low</span>
       </div>
       <div
-      id="medium"
+        id="medium"
         className="w-full flex items-center gap-2 px-3 py-2 rounded-sm hover:bg-pink-100"
         onClick={handelClick}
       >
@@ -41,7 +45,7 @@ const DropDownContent: React.FC<ContentProps> = ({ setSelectedOption, onClick })
         <span className="text-sm font-medium">Medium</span>
       </div>
       <div
-      id="high"
+        id="high"
         className="w-full flex items-center gap-2 px-3 py-2 rounded-sm hover:bg-red-100"
         onClick={handelClick}
       >

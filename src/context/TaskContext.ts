@@ -6,6 +6,4 @@ type CreateContextType = {
     dispatch: React.ActionDispatch<[action: ActionType]>
 }
 
-const TaskContext = createContext<CreateContextType | null>(null)
-
-export default TaskContext;
+export const TaskContext = createContext<CreateContextType | null>(null)

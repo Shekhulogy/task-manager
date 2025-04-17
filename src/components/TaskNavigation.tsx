@@ -31,7 +31,7 @@ const TaskNavigation: React.FC = () => {
           id="all"
           type="button"
           aria-selected="true"
-          className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none ${
+          className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none cursor-pointer ${
             isActive.all ? "text-gray-950 shadow-sm bg-white" : null
           }  `}
           onClick={btnClickHandler}
@@ -41,7 +41,7 @@ const TaskNavigation: React.FC = () => {
         <button
           id="active"
           type="button"
-          className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none  ${
+          className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none cursor-pointer ${
             isActive.active ? "text-gray-950 shadow-sm bg-white" : null
           }`}
           onClick={btnClickHandler}
@@ -51,7 +51,7 @@ const TaskNavigation: React.FC = () => {
         <button
           id="completed"
           type="button"
-          className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none active:shadow-sm active:bg-white  ${
+          className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none active:shadow-sm active:bg-white cursor-pointer ${
             isActive.completed ? "text-gray-950 shadow-sm bg-white" : null
           }`}
           onClick={btnClickHandler}

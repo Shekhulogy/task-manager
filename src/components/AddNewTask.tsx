@@ -2,21 +2,24 @@ import React, { useContext, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import DropDownButton from "./DropDownButton";
 import DropDownContent from "./DropDownContent";
-import TaskContext from "../context/TaskContext";
+import { TaskContext } from "../context/TaskContext";
 import { TaskType } from "../context/TaskContextProvider";
 
+export type optionType = "Low" | "Medium" | "High";
+
 const AddNewTask: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>("Medium");
+  const [selectedOption, setSelectedOption] = useState<optionType>("Medium");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const [newTask, setNewTask] = useState<TaskType>({
     id: crypto.randomUUID(),
     text: "",
     dueDate: "",
-    priority: "",
+    priority: selectedOption,
     isChecked: false,
   });
+
   const taskContext = useContext(TaskContext);
-  // console.log(selectedOption);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTask({
@@ -55,7 +58,7 @@ const AddNewTask: React.FC = () => {
         </div>
 
         <div className="flex justify-between items-end">
-          <div className="flex gap-3 w-1/2">
+          <div className="flex gap-3 w-2/3 ">
             <div className=" w-full inline-flex flex-1 flex-col">
               <label
                 htmlFor="dueDate"
@@ -95,19 +98,16 @@ const AddNewTask: React.FC = () => {
                   type="date"
                   name="dueDate"
                   value={newTask.dueDate}
-                  className="flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-center pl-10 md:text-sm focus:outline-0"
+                  className="flex h-10 w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-center pl-10 md:text-sm focus:outline-0 cursor-pointer"
                   onChange={handleChange}
                 />
               </div>
             </div>
 
-            <div
-              id="dropDown"
-              className="relative h-10 w-full sm:w-[12rem] flex flex-col"
-            >
+            <div id="dropDown" className="relative w-1/2 ">
               <label
                 htmlFor="priority"
-                className="text-left text-sm font-medium mb-2"
+                className="flex text-left text-sm font-medium mb-2"
               >
                 Priority
               </label>
@@ -123,7 +123,7 @@ const AddNewTask: React.FC = () => {
               )}
             </div>
           </div>
-          <button className="h-10 w-full sm:w-auto px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-gray-950 text-white gap-2 transition duration-300 ease-in-out hover:bg-gray-900 cursor-pointer">
+          <button className="h-10 w-full sm:w-auto px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium bg-gray-900 text-white gap-2 transition duration-300 ease-in-out hover:bg-gray-800 cursor-pointer">
             <AddIcon fontSize="small" />
             <span>Add Task</span>
           </button>

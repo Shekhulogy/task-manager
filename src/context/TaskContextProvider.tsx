@@ -1,17 +1,17 @@
 import React, { useReducer } from "react";
-import TaskContext from "./TaskContext";
+import { TaskContext } from "./TaskContext";
 
 export type TaskType = {
   id: string;
-  text?: string;
+  text: string;
   dueDate?: string;
-  priority?: string;
+  priority?: "Low" | "Medium" | "High";
   isChecked?: boolean;
 };
 
 export type ActionType = {
   type: string;
-  payload: TaskType;
+  payload: TaskType | string;
 };
 
 const initialValue: TaskType[] = JSON.parse(
@@ -29,17 +29,19 @@ const tasksReducer = (state: TaskType[], action: ActionType): TaskType[] => {
 
     case "UPDATE":
       const updatedTasks = state.map((curTask) => {
-        if (curTask.id === action.payload.id) {
-          return (curTask = action.payload);
+        if (typeof action.payload !== "string") {
+          if (curTask.id === action.payload.id) {
+            return (curTask = action.payload);
+          }
+          return curTask;
         }
-        return curTask;
       });
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
       return JSON.parse(localStorage.getItem("tasks") ?? '""');
 
     case "DELETE": {
       const remainingTasks = state.filter(
-        (curTask) => curTask.id !== action.payload.id
+        (curTask) => curTask.id !== action.payload
       );
       localStorage.setItem("tasks", JSON.stringify(remainingTasks));
       return JSON.parse(localStorage.getItem("tasks") ?? '""');

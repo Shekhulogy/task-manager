@@ -4,7 +4,7 @@ import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
 
 interface ButtonProps {
   onClick(): void;
-  selectedOption: string;
+  selectedOption?: "Low" | "Medium" | "High";
 }
 
 const DropDownButton: React.FC<ButtonProps> = ({ onClick, selectedOption }) => {
@@ -25,7 +25,7 @@ const DropDownButton: React.FC<ButtonProps> = ({ onClick, selectedOption }) => {
   return (
     <div
     id="priority"
-      className={`relative inline-flex flex-1 items-center justify-between w-full rounded-md border border-gray-200 ${buttonBgColor} text-sm focus:outline-0`}
+      className={`relative h-10 inline-flex flex-1 items-center justify-between w-full rounded-md border border-gray-200 ${buttonBgColor} text-sm focus:outline-0`}
     >
       <span className={`absolute flex items-center pl-4 ${buttonTextColor}`}>
         <TurnedInNotIcon fontSize="small" />
