@@ -1,9 +1,9 @@
 import React from "react";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
-import { optionType } from "./AddNewTask";
+import { OptionType } from "./AddNewTask";
 
 interface ContentProps {
-  setSelectedOption:React.Dispatch<React.SetStateAction<optionType>>;
+  setSelectedOption:React.Dispatch<React.SetStateAction<OptionType>>;
   onClick(): void;
 }
 

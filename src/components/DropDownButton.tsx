@@ -1,14 +1,17 @@
 import React from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
-import { optionType } from "./AddNewTask";
+import { OptionType } from "./AddNewTask";
 
 interface ButtonProps {
   onClick(): void;
-  selectedOption?: optionType;
+  selectedOption?: OptionType;
 }
 
-const DropDownButton: React.FC<ButtonProps> = ({ onClick, selectedOption = "Medium"}) => {
+const DropDownButton: React.FC<ButtonProps> = ({
+  onClick,
+  selectedOption,
+}) => {
   let buttonBgColor: string = "bg-pink-100";
   let buttonTextColor: string = "text-pink-500";
 
@@ -25,7 +28,7 @@ const DropDownButton: React.FC<ButtonProps> = ({ onClick, selectedOption = "Medi
 
   return (
     <div
-    id="priority"
+      id="priority"
       className={`relative h-10 inline-flex flex-1 items-center justify-between w-full rounded-md border border-gray-200 ${buttonBgColor} text-sm focus:outline-0`}
     >
       <span className={`absolute flex items-center pl-4 ${buttonTextColor}`}>

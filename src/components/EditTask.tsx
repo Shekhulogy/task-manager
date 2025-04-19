@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import DropDownButton from "./DropDownButton";
 import DropDownContent from "./DropDownContent";
 import { TaskType } from "../context/TaskContextProvider";
-import { optionType } from "./AddNewTask";
+import { OptionType } from "./AddNewTask";
 import { TaskContext } from "../context/TaskContext";
 
 type EditTaskProps = {
@@ -12,8 +12,8 @@ type EditTaskProps = {
 
 const EditTask: React.FC<EditTaskProps> = ({ curTask, setEdit }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<optionType>(
-    curTask.priority as optionType
+  const [selectedOption, setSelectedOption] = useState<OptionType>(
+    curTask.priority as OptionType
   );
 
   const [editedTask, setEditedTask] = useState<TaskType>(curTask);

@@ -1,38 +1,48 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import DropDownButton from "./DropDownButton";
 import DropDownContent from "./DropDownContent";
 import { TaskContext } from "../context/TaskContext";
 import { TaskType } from "../context/TaskContextProvider";
 
-export type optionType = "Low" | "Medium" | "High";
+export type OptionType = "Low" | "Medium" | "High";
 
 const AddNewTask: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<optionType>("Medium");
+  const [selectedOption, setSelectedOption] = useState<OptionType>("Medium");
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [newTask, setNewTask] = useState<TaskType>({
     id: crypto.randomUUID(),
     text: "",
     dueDate: "",
-    priority: undefined,
+    priority: selectedOption,
     isChecked: false,
   });
 
   const taskContext = useContext(TaskContext);
 
+  useEffect(() => {
+    setNewTask((prev) => ({ ...prev, priority: selectedOption }));
+  }, [selectedOption]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTask({
-      ...newTask,
+    setNewTask((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-      priority: selectedOption,
-    });
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     taskContext?.dispatch({ type: "ADD", payload: newTask });
-    setNewTask({ ...newTask, text: "", dueDate: "" });
+    setNewTask({
+      id: crypto.randomUUID(),
+      text: "",
+      dueDate: "",
+      priority: selectedOption,
+      isChecked: false,
+    });
   };
 
   return (

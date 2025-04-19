@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import { TaskContext } from "./TaskContext";
 
 export type TaskType = {
-  id: string;
+  id: string ;
   text: string;
   dueDate?: string;
   priority?: "Low" | "Medium" | "High";
@@ -22,8 +22,6 @@ const tasksReducer = (state: TaskType[], action: ActionType): TaskType[] => {
   switch (action.type) {
     case "ADD":
       const tasks = [...state, action.payload];
-      console.log(action.payload);
-
       localStorage.setItem("tasks", JSON.stringify(tasks));
       return JSON.parse(localStorage.getItem("tasks") ?? '""');
 

@@ -24,23 +24,62 @@ const Task: React.FC<TaskProps> = ({ curTask }) => {
 
   const taskContext = useContext(TaskContext);
   const [edit, setEdit] = useState<boolean>(false);
-  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleDelete = (id: string) => {
     taskContext?.dispatch({ type: "DELETE", payload: id });
   };
 
+  let isChecked = curTask.isChecked;
+
   const handleCheckboxClick = () => {
-    setIsChecked((prev) => !prev);
+    isChecked = isChecked ? false : true;
     taskContext?.dispatch({
       type: "UPDATE",
       payload: { ...curTask, isChecked },
     });
   };
 
+  const curDate = new Date();
+  const dueDate = new Date(curTask.dueDate ?? "");
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const month = months[dueDate.getMonth()];
+  const date = dueDate.getDate();
+  const year = dueDate.getFullYear();
+
+  let dueMassage: string = "";
+  if (
+    curDate.getFullYear() === year &&
+    curDate.getMonth() === dueDate.getMonth()
+  ) {
+    if (curDate.getDate() > date || curDate.getDate() === date) {
+      dueMassage = "(Overdue)";
+    } else if (curDate.getDate() + 1 === date) {
+      dueMassage = "(Due tomorrow)";
+    } else {
+      dueMassage = `(Due in ${date - curDate.getDate()} days)`;
+    }
+  }
+
   return (
     <div
-      className={`w-full rounded-lg border border-gray-200 bg-white shadow-sm p-4 mb-3 border-l-4 ${curTask.isChecked ? "border-l-green-600":leftBorderColor}`}
+      className={`w-full rounded-lg border border-gray-200 bg-white shadow-sm p-4 mb-3 border-l-4 ${
+        isChecked ? "border-l-green-600" : leftBorderColor
+      }`}
     >
       {edit ? (
         <EditTask curTask={curTask} setEdit={setEdit} />
@@ -50,10 +89,12 @@ const Task: React.FC<TaskProps> = ({ curTask }) => {
             <button
               type="button"
               role="checkbox"
-              className={`peer w-4 h-4 shrink-0 rounded-sm border focus-visible:outline-none cursor-pointer ${curTask.isChecked && "border-green-600 bg-green-50 text-green-600"}`}
+              className={`peer w-4 h-4 shrink-0 rounded-sm border focus-visible:outline-none cursor-pointer ${
+                isChecked && "border-green-600 bg-green-50 text-green-600"
+              }`}
               onClick={handleCheckboxClick}
             >
-              {curTask.isChecked && (
+              {isChecked && (
                 <span className=" flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +123,11 @@ const Task: React.FC<TaskProps> = ({ curTask }) => {
           </div>
           <div id="priority" className="flex-1">
             <div className="flex items-center justify-between">
-              <span className={`text-sm font-medium ${curTask.isChecked && "line-through"}`}>{curTask.text}</span>
+              <span
+                className={`text-sm font-medium ${isChecked && "line-through"}`}
+              >
+                {curTask.text}
+              </span>
               <span
                 className={`inline-flex h-6 items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${priorityColor}`}
               >
@@ -118,8 +163,8 @@ const Task: React.FC<TaskProps> = ({ curTask }) => {
                   <rect width="18" height="18" x="3" y="4" rx="2"></rect>
                   <path d="M3 10h18"></path>
                 </svg>
-                <span>{curTask.dueDate}</span>
-                <span className="ml-1 text-xs">(overdue)</span>
+                <span>{`${month} ${date}, ${year}`}</span>
+                <span className="ml-1 text-xs">{dueMassage}</span>
               </span>
             </div>
           </div>

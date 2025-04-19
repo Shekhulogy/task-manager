@@ -4,12 +4,12 @@ import TaskContextProvider from "./context/TaskContextProvider";
 
 const App = () => {
   return (
-    <>
-      <SideBar />
+    <div className="flex min-h-screen w-full">
       <TaskContextProvider>
+        <SideBar />
         <TaskSection />
       </TaskContextProvider>
-    </>
+    </div>
   );
 };
 

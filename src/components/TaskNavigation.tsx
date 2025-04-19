@@ -22,7 +22,7 @@ const TaskNavigation: React.FC<TaskNavigationProps> = ({isActive, setIsActive}) 
   };
   return (
     <div className="flex items-center mb-4">
-      <div className="inline-flex items-center justify-center h-10 p-1 bg-indigo-50 rounded-md border border-indigo-100">
+      <div className="inline-flex items-center justify-center h-10 p-1 bg-indigo-50 rounded-md ">
         <button
           id="all"
           type="button"
