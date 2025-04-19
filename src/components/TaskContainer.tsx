@@ -1,27 +1,21 @@
-import React, {useState} from "react";
+import React, { useContext} from "react";
 import TaskNavigation from "./TaskNavigation";
 import AllTask from "./AllTask";
 import ActiveTask from "./ActiveTask";
 import CompletedTask from "./CompletedTask";
-
-export type TabState = {
-  all: boolean;
-  active: boolean;
-  completed: boolean;
-};
+import DueSoon from "./DueSoon";
+import { NavigationContext } from "../context/NavigationContext";
 
 const TaskContainer: React.FC = () => {
-  const [isActive, setIsActive] = useState<TabState>({
-      all: true,
-      active: false,
-      completed: false,
-    });
+  const navigation = useContext(NavigationContext)
+
   return (
     <div className="w-full">
-      <TaskNavigation isActive={isActive} setIsActive={setIsActive}/>
-      {isActive.all && <AllTask />}
-      {isActive.active && <ActiveTask />}
-      {isActive.completed && <CompletedTask />}
+      <TaskNavigation/>
+      {navigation.isActive === "all" && <AllTask />}
+      {navigation.isActive === "active" && <ActiveTask />}
+      {navigation.isActive === "completed" && <CompletedTask />}
+      {navigation.isActive === "dueSoon" && <DueSoon />}
     </div>
   );
 };

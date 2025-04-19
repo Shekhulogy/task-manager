@@ -1,24 +1,13 @@
-import React from "react";
-import { TabState } from "./TaskContainer";
+import React, { useContext } from "react";
+import { NavigationContext } from "../context/NavigationContext";
 
-type TaskNavigationProps ={
-  isActive:TabState,
-  setIsActive:React.Dispatch<React.SetStateAction<TabState>>
-}
 
-const TaskNavigation: React.FC<TaskNavigationProps> = ({isActive, setIsActive}) => {
-  
+const TaskNavigation: React.FC = () => {
+  const navigation = useContext(NavigationContext);
 
-  const btnClickHandler = (e: React.MouseEvent) => {
-    const id = e.currentTarget.id;
+  const btnClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    navigation.setIsActive(e.currentTarget.id);
 
-    if (id === "all") {
-      setIsActive({ all: true, active: false, completed: false });
-    } else if (id === "active") {
-      setIsActive({ all: false, active: true, completed: false });
-    } else {
-      setIsActive({ all: false, active: false, completed: true });
-    }
   };
   return (
     <div className="flex items-center mb-4">
@@ -28,7 +17,7 @@ const TaskNavigation: React.FC<TaskNavigationProps> = ({isActive, setIsActive}) 
           type="button"
           aria-selected="true"
           className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none cursor-pointer ${
-            isActive.all ? "text-gray-950 shadow-sm bg-white" : null
+            navigation.isActive === "all" ? "text-gray-950 shadow-sm bg-white" : null
           }  `}
           onClick={btnClickHandler}
         >
@@ -38,7 +27,7 @@ const TaskNavigation: React.FC<TaskNavigationProps> = ({isActive, setIsActive}) 
           id="active"
           type="button"
           className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none cursor-pointer ${
-            isActive.active ? "text-gray-950 shadow-sm bg-white" : null
+            navigation.isActive === "active" ? "text-gray-950 shadow-sm bg-white" : null
           }`}
           onClick={btnClickHandler}
         >
@@ -48,11 +37,21 @@ const TaskNavigation: React.FC<TaskNavigationProps> = ({isActive, setIsActive}) 
           id="completed"
           type="button"
           className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none active:shadow-sm active:bg-white cursor-pointer ${
-            isActive.completed ? "text-gray-950 shadow-sm bg-white" : null
+            navigation.isActive === "completed" ? "text-gray-950 shadow-sm bg-white" : null
           }`}
           onClick={btnClickHandler}
         >
           Completed
+        </button>
+        <button
+          id="dueSoon"
+          type="button"
+          className={`inline-flex h-full items-center justify-center whitespace-nowrap rounded-sm px-3 py1.5 text-gray-500 text-sm font-medium transition-all focus-visible:outline-none active:shadow-sm active:bg-white cursor-pointer ${
+            navigation.isActive === "dueSoon" ? "text-gray-950 shadow-sm bg-white" : null
+          }`}
+          onClick={btnClickHandler}
+        >
+          Due Soon
         </button>
       </div>
     </div>

@@ -7,7 +7,7 @@ const OverView = () => {
   const completedTask =
     taskContext?.tasks.filter((curTask) => curTask.isChecked === true).length ??
     0;
-  const completionPercentage = Math.round((completedTask / totalTask) * 100) ;
+  const completionPercentage = Math.round((completedTask / totalTask) * 100);
   const dueSoonTasks = taskContext?.tasks.filter((curTask) => {
     const dueDate = new Date(curTask.dueDate ?? "");
     const curDate = new Date();
@@ -16,7 +16,10 @@ const OverView = () => {
       curDate.getFullYear() === dueDate.getFullYear() &&
       curDate.getMonth() === dueDate.getMonth()
     ) {
-      if (dueDate.getDate() > curDate.getDate() && dueDate.getDate() <= curDate.getDate() + 2) {
+      if (
+        dueDate.getDate() > curDate.getDate() &&
+        dueDate.getDate() <= curDate.getDate() + 2
+      ) {
         return curTask;
       }
     }
